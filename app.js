@@ -50,13 +50,11 @@ class Pokedex {
             </div>
         `;
 
-        // Solo añadimos el botón si NO estamos en la vista de colección
-        if (!esVistaColeccion) {
-            const boton = document.createElement('button');
-            boton.textContent = "Catch!";
-            boton.onclick = () => this.agregarAColeccion(pokemon);
-            tarjeta.appendChild(boton);
-        }
+        // Añadimos siempre el botón, sin importar si es vista colección o no
+        const boton = document.createElement('button');
+        boton.textContent = "Catch!";
+        boton.onclick = () => this.agregarAColeccion(pokemon);
+        tarjeta.appendChild(boton);
 
         contenedor.appendChild(tarjeta);
     }
@@ -174,7 +172,7 @@ class Pokedex {
                 alert("Error filtrando: " + error.message);
             });
     }
-    
+
 }
 
 // ==========================================
