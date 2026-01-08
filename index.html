@@ -1,14 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mi Pokédex</title>
-        <link rel="stylesheet" href="estilos.css">
-    </head>
-    <body>
-        <h1>Pokédex Kanto</h1>
-        <div id="pokedex-contenedor" class="pokedex-contenedor"></div>
-        <script src="app.js"></script>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Pokédex</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+    <h1>Pokédex Kanto</h1>
+    <div id="seccion-buscador">
+        <div class="contenedor-busqueda">
+            <input type="text" id="buscador" placeholder="Buscar Pokémon por nombre o ID...">
+            <button id="btn-buscar">Buscar (Fetch)</button>
+            <button id="btn-buscar-jquery">Buscar (jQuery)</button>
+            <button id="btn-ver-coleccion">Ver Colección</button>
+        </div>
+
+        <div class="contenedor-busqueda">
+            <select id="filtro-tipo">
+                <option value="fire">Fire</option>
+                <option value="water">Water</option>
+                <option value="grass">Grass</option>
+                <option value="electric">Electric</option>
+                <option value="ice">Ice</option>
+                <option value="fighting">Fighting</option>
+                <option value="poison">Poison</option>
+                <option value="ground">Ground</option>
+                <option value="flying">Flying</option>
+                <option value="psychic">Psychic</option>
+                <option value="bug">Bug</option>
+                <option value="rock">Rock</option>
+                <option value="ghost">Ghost</option>
+                <option value="dragon">Dragon</option>
+            </select>
+            <button id="btn-filtrar-tipo">Filtrar por Tipo (Promise.all)</button>
+        </div>
+    </div>
+
+    <div id="pokedex-contenedor" class="pokedex-contenedor"></div>
+
+    <div id="coleccion-seccion" style="display:none;">
+        <h2>Mi Colección</h2>
+        <div id="coleccion-contenedor" class="pokedex-contenedor"></div>
+        <button id="btn-volver">Volver al Buscador</button>
+    </div>
+
+    <!-- Cargamos la librería jQuery desde un servidor externo (CDN) para poder usar $.ajax() -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
 </html>

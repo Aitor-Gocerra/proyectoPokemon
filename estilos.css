@@ -5,7 +5,8 @@ body {
 }
 
 h1 {
-    color: #ff0000; /* Rojo Pokédex */
+    color: #ff0000;
+    /* Rojo Pokédex */
 }
 
 /* Diseño de cuadrícula (Grid) */
@@ -19,19 +20,33 @@ h1 {
 }
 
 /* Diseño de la tarjeta individual */
+.error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.contenedor-busqueda {
+    text-align: center;
+    margin: 20px;
+}
+
 .pokemon-tarjeta {
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
     text-align: center;
     transition: transform 0.2s;
-    text-transform: capitalize; /* Pone la primera letra en mayúscula */
+    text-transform: capitalize;
+    /* Pone la primera letra en mayúscula */
 }
 
 .pokemon-tarjeta:hover {
-    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .contenedor-imagen {
@@ -64,4 +79,14 @@ h1 {
 
 .tipo {
     color: #777;
+}
+
+#buscador {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    width: 250px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
