@@ -52,7 +52,7 @@ class Pokedex {
 
         // Añadimos el botón para atraparlo
         const boton = document.createElement('button');
-        boton.textContent = "Catch!";
+        boton.textContent = "Atrapalo!";
         boton.onclick = () => this.agregarAColeccion(pokemon); // () es una funcion anonima
         tarjeta.appendChild(boton);
 
