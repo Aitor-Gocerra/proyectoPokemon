@@ -155,7 +155,8 @@ class Pokedex {
                 // Creamos un array de PROMESAS (peticiones pendientes)
                 // Usamos .map para transformar cada elemento en una petición fetch
                 const peticiones = primeros5.map(item =>
-                    fetch(item.pokemon.url).then(respu => respu.json())
+                    fetch(item.pokemon.url)
+                    .then(respu => respu.json())
                 );
 
                 // Promise.all espera a que TODAS las peticiones terminen
