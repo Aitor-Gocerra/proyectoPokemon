@@ -36,7 +36,7 @@ class Pokedex {
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('pokemon-tarjeta');
 
-        // Mapeamos los tipos (ej: "fire, flying")
+        // Mapeamos los tipos
         const tipos = pokemon.types.map(tipo => tipo.type.name).join(', ');
 
         tarjeta.innerHTML = `
@@ -93,7 +93,7 @@ class Pokedex {
             url: `https://pokeapi.co/api/v2/pokemon/${nombre.toLowerCase()}`,
             method: 'GET',
             success: (pokemon) => {
-                // Si tiene éxito, jQuery ya nos da el objeto 'pokemon' parseado
+                // jQuery ya nos da el objeto 'pokemon' parseado
                 this.divResultados.innerHTML = '';
                 this.crearTarjeta(pokemon);
             },
