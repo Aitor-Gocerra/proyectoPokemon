@@ -104,9 +104,9 @@ class Pokedex {
         });
     }
 
-    // EJERCICIO 4: COLECCIÓN (ARRAYS y DOM)
+    // EJERCICIO 4: COLECCIÓN
     agregarAColeccion(pokemon) {
-        // Evitamos duplicados: .some() devuelve true si encuentra coincidencia
+        // True si encuentra coincidencia
         const yaExiste = this.coleccion.some(poke => poke.id === pokemon.id);
 
         if (yaExiste) {
@@ -120,9 +120,9 @@ class Pokedex {
     }
 
     mostrarColeccion() {
-        // Ocultamos el buscador y mostramos la sección de colección
-        this.divResultados.style.display = 'none'; // Ocultar resultados
-        document.getElementById('seccion-buscador').style.display = 'none'; // Ocultar buscadores
+        // Ocultamos buscadores
+        this.divResultados.style.display = 'none'; 
+        document.getElementById('seccion-buscador').style.display = 'none'; 
 
         this.seccionColeccion.style.display = 'block'; // Mostrar colección
         this.divColeccion.innerHTML = ''; // Limpiar previo
@@ -149,7 +149,7 @@ class Pokedex {
         fetch(`https://pokeapi.co/api/v2/type/${tipo}`)
             .then(respuesta => respuesta.json())
             .then(datos => {
-                // Solo tomamos los primeros 5 para no saturar
+                
                 const primeros5 = datos.pokemon.slice(0, 5);
 
                 // Creamos un array de PROMESAS (peticiones pendientes)
@@ -164,7 +164,7 @@ class Pokedex {
             .then(listaPokemonsCompletos => {
                 // Aquí ya tenemos un array con los 5 pokemons completos
                 this.divResultados.innerHTML = '';
-                listaPokemonsCompletos.forEach(p => this.crearTarjeta(p));
+                listaPokemonsCompletos.forEach(pokemon => this.crearTarjeta(pokemon));
             })
             .catch(error => {
                 alert("Error filtrando: " + error.message);
