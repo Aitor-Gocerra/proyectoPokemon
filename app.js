@@ -1,12 +1,12 @@
 class Pokedex {
 
     constructor() {
-        // Obtenemos referencias a los elementos del HTML que vamos a usar
+        //Elementos del formulario
         this.divResultados = document.getElementById('pokedex-contenedor');
         this.divColeccion = document.getElementById('coleccion-contenedor');
         this.seccionColeccion = document.getElementById('coleccion-seccion');
 
-        // Estado: Aquí guardaremos los Pokémon que el usuario agregue a su colección
+        // Coleccion
         this.coleccion = [];
     }
 
@@ -14,17 +14,17 @@ class Pokedex {
 
     async cargarPokemonsIniciales() {
         try {
-            // 1. Hacemos la petición a la API para obtener la lista
+            // Petición a la API para obtener la lista
             const respuesta = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
             const datos = await respuesta.json(); // Convertimos a JSON
 
-            // 2. Recorremos la lista de resultados
+            // Lista de resultados
             for (const pokemonResumen of datos.results) {
                 // 3. Obtenemos los detalles de cada Pokémon individualmente
                 const respuestaDetalle = await fetch(pokemonResumen.url);
                 const pokemonDetalle = await respuestaDetalle.json();
 
-                // 4. Mostramos el Pokémon en pantalla
+                // Pokémon en pantalla
                 this.crearTarjeta(pokemonDetalle);
             }
         } catch (error) {
@@ -32,12 +32,12 @@ class Pokedex {
         }
     }
 
-    crearTarjeta(pokemon, contenedor = this.divResultados, esVistaColeccion = false) {
+    crearTarjeta(pokemon, contenedor = this.divResultados) {
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('pokemon-tarjeta');
 
-        // Formateamos los tipos (ej: "fire, flying")
-        const tipos = pokemon.types.map(t => t.type.name).join(', ');
+        // Mapeamos los tipos (ej: "fire, flying")
+        const tipos = pokemon.types.map(tipo => tipo.type.name).join(', ');
 
         tarjeta.innerHTML = `
             <div class="contenedor-imagen">
@@ -50,10 +50,10 @@ class Pokedex {
             </div>
         `;
 
-        // Añadimos siempre el botón, sin importar si es vista colección o no
+        // Añadimos el botón para atraparlo
         const boton = document.createElement('button');
         boton.textContent = "Catch!";
-        boton.onclick = () => this.agregarAColeccion(pokemon);
+        boton.onclick = () => this.agregarAColeccion(pokemon); // () es una funcion anonima
         tarjeta.appendChild(boton);
 
         contenedor.appendChild(tarjeta);
@@ -67,19 +67,17 @@ class Pokedex {
         // Usamos fetch normal, que devuelve una "Promesa"
         fetch(`https://pokeapi.co/api/v2/pokemon/${nombre.toLowerCase()}`)
             .then(respuesta => {
-                // Si la respuesta no es OK (ej. error 404), lanzamos un error manual
                 if (!respuesta.ok) {
                     throw new Error("Pokémon no encontrado");
                 }
-                return respuesta.json(); // Si todo bien, convertimos a JSON
+                return respuesta.json(); // Convertimos a JSON
             })
             .then(pokemon => {
-                // AQUÍ tenemos los datos del Pokémon listos
+                // Aqui tenemos los datos del Pokémon listos
                 this.divResultados.innerHTML = ''; // Limpiamos resultados anteriores
                 this.crearTarjeta(pokemon); // Mostramos el nuevo
             })
             .catch(error => {
-                // AQUÍ caemos si hubo CUALQUIER error (red, 404, etc.)
                 console.error(error);
                 alert("Error: " + error.message);
                 this.divResultados.innerHTML = `<p class="error">Lo sentimos, no encontramos el Pokémon "${nombre}"</p>`;
@@ -147,20 +145,20 @@ class Pokedex {
     filtrarPorTipo(tipo) {
         console.log(`Buscando tipo: ${tipo}...`);
 
-        // 1. Pedimos la lista de pokemons de ese tipo
+        // Pedimos la lista de pokemons de ese tipo
         fetch(`https://pokeapi.co/api/v2/type/${tipo}`)
-            .then(res => res.json())
+            .then(respuesta => respuesta.json())
             .then(datos => {
                 // Solo tomamos los primeros 5 para no saturar
                 const primeros5 = datos.pokemon.slice(0, 5);
 
-                // 2. Creamos un array de PROMESAS (peticiones pendientes)
+                // Creamos un array de PROMESAS (peticiones pendientes)
                 // Usamos .map para transformar cada elemento en una petición fetch
                 const peticiones = primeros5.map(item =>
-                    fetch(item.pokemon.url).then(r => r.json())
+                    fetch(item.pokemon.url).then(respu => respu.json())
                 );
 
-                // 3. Promise.all espera a que TODAS las peticiones terminen
+                // Promise.all espera a que TODAS las peticiones terminen
                 return Promise.all(peticiones);
             })
             .then(listaPokemonsCompletos => {
